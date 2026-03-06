@@ -6,6 +6,10 @@ const { SafePromptFR } = require('../src/languages/fr');
 const { SafePromptZH } = require('../src/languages/zh');
 const { SafePromptDE } = require('../src/languages/de');
 const { SafePromptPT } = require('../src/languages/pt');
+const { SafePromptTR } = require('../src/languages/tr');
+const { SafePromptHI } = require('../src/languages/hi');
+const { SafePromptKO } = require('../src/languages/ko');
+const { SafePromptJA } = require('../src/languages/ja');
 const { SafePromptContext } = require('../src/core/context-patterns');
 
 function createDetector() {
@@ -17,6 +21,10 @@ function createDetector() {
   d.registerLanguage('zh', SafePromptZH);
   d.registerLanguage('de', SafePromptDE);
   d.registerLanguage('pt', SafePromptPT);
+  d.registerLanguage('tr', SafePromptTR);
+  d.registerLanguage('hi', SafePromptHI);
+  d.registerLanguage('ko', SafePromptKO);
+  d.registerLanguage('ja', SafePromptJA);
   d.registerLanguage('context', SafePromptContext);
   return d;
 }
@@ -864,5 +872,153 @@ describe('Names Dictionary', () => {
     const results = d.scan('تواصل مع فاطمة بخصوص الطلب');
     const name = results.find((r) => r.type === 'name_dict_ar');
     expect(name).toBeDefined();
+  });
+});
+
+// ═══════════════════════════════════════════════════════════════════════════
+// Turkish Patterns
+// ═══════════════════════════════════════════════════════════════════════════
+
+describe('Turkish - Identity', () => {
+  const d = createDetector();
+
+  test('detects Turkish IBAN', () => {
+    const results = d.scan('IBAN: TR330006100519786457841326');
+    const iban = results.find((r) => r.type === 'iban_tr');
+    expect(iban).toBeDefined();
+  });
+
+  test('detects Turkish phone number', () => {
+    const results = d.scan('cep telefonu +90 532 123 45 67');
+    const phone = results.find((r) => r.type === 'phone_tr');
+    expect(phone).toBeDefined();
+  });
+
+  test('detects Turkish password', () => {
+    const results = d.scan('sifre: MySecretPass123');
+    const pw = results.find((r) => r.type === 'password');
+    expect(pw).toBeDefined();
+  });
+});
+
+// ═══════════════════════════════════════════════════════════════════════════
+// Hindi/Indian Patterns
+// ═══════════════════════════════════════════════════════════════════════════
+
+describe('Hindi - Identity', () => {
+  const d = createDetector();
+
+  test('detects Aadhaar number with context', () => {
+    const results = d.scan('aadhaar number 2345 6789 0123');
+    const aadhaar = results.find((r) => r.type === 'aadhaar_in');
+    expect(aadhaar).toBeDefined();
+  });
+
+  test('detects PAN card number', () => {
+    const results = d.scan('PAN card ABCPD1234E');
+    const pan = results.find((r) => r.type === 'pan_in');
+    expect(pan).toBeDefined();
+  });
+
+  test('detects Indian phone number', () => {
+    const results = d.scan('mobile +91 98765 43210');
+    const phone = results.find((r) => r.type === 'phone_in');
+    expect(phone).toBeDefined();
+  });
+
+  test('detects IFSC code', () => {
+    const results = d.scan('IFSC: SBIN0001234');
+    const ifsc = results.find((r) => r.type === 'ifsc_in');
+    expect(ifsc).toBeDefined();
+  });
+
+  test('detects GSTIN', () => {
+    const results = d.scan('GST: 22AAAAA0000A1Z5');
+    const gst = results.find((r) => r.type === 'gst_in');
+    expect(gst).toBeDefined();
+  });
+});
+
+// ═══════════════════════════════════════════════════════════════════════════
+// Korean Patterns
+// ═══════════════════════════════════════════════════════════════════════════
+
+describe('Korean - Identity', () => {
+  const d = createDetector();
+
+  test('detects Korean drivers license', () => {
+    const results = d.scan('license 11-22-333333-44');
+    const dl = results.find((r) => r.type === 'drivers_license_kr');
+    expect(dl).toBeDefined();
+  });
+
+  test('detects Korean phone number', () => {
+    const results = d.scan('call +82 10-1234-5678');
+    const phone = results.find((r) => r.type === 'phone_kr');
+    expect(phone).toBeDefined();
+  });
+
+  test('detects Korean business registration number', () => {
+    const results = d.scan('business registration 123-45-67890');
+    const brn = results.find((r) => r.type === 'brn_kr');
+    expect(brn).toBeDefined();
+  });
+});
+
+// ═══════════════════════════════════════════════════════════════════════════
+// Japanese Patterns
+// ═══════════════════════════════════════════════════════════════════════════
+
+describe('Japanese - Identity', () => {
+  const d = createDetector();
+
+  test('detects Zairyu card number', () => {
+    const results = d.scan('zairyu AB12345678CD');
+    const zairyu = results.find((r) => r.type === 'zairyu_card_jp');
+    expect(zairyu).toBeDefined();
+  });
+
+  test('detects Japanese phone number', () => {
+    const results = d.scan('phone: +81 90-1234-5678');
+    const phone = results.find((r) => r.type === 'phone_jp');
+    expect(phone).toBeDefined();
+  });
+
+  test('detects Japanese postal code with context', () => {
+    const results = d.scan('postal code 100-0001');
+    const postal = results.find((r) => r.type === 'postal_code_jp');
+    expect(postal).toBeDefined();
+  });
+});
+
+// ═══════════════════════════════════════════════════════════════════════════
+// Names Dictionary - New Languages
+// ═══════════════════════════════════════════════════════════════════════════
+
+describe('Names Dictionary - New Languages', () => {
+  const { SafePromptNames } = require('../src/core/names-dictionary');
+
+  test('builds Turkish pattern', () => {
+    const pat = SafePromptNames.buildPattern('tr');
+    expect(pat).toBeDefined();
+    expect(pat).toContain('Mehmet');
+  });
+
+  test('builds Hindi pattern', () => {
+    const pat = SafePromptNames.buildPattern('hi');
+    expect(pat).toBeDefined();
+    expect(pat).toContain('Rahul');
+  });
+
+  test('builds Korean pattern', () => {
+    const pat = SafePromptNames.buildPattern('ko');
+    expect(pat).toBeDefined();
+    expect(pat).toContain('Minjun');
+  });
+
+  test('builds Japanese pattern', () => {
+    const pat = SafePromptNames.buildPattern('ja');
+    expect(pat).toBeDefined();
+    expect(pat).toContain('Haruto');
   });
 });

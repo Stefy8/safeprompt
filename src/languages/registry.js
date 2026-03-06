@@ -13,6 +13,10 @@
       typeof SafePromptZH !== 'undefined' ? SafePromptZH : null,
       typeof SafePromptDE !== 'undefined' ? SafePromptDE : null,
       typeof SafePromptPT !== 'undefined' ? SafePromptPT : null,
+      typeof SafePromptTR !== 'undefined' ? SafePromptTR : null,
+      typeof SafePromptHI !== 'undefined' ? SafePromptHI : null,
+      typeof SafePromptKO !== 'undefined' ? SafePromptKO : null,
+      typeof SafePromptJA !== 'undefined' ? SafePromptJA : null,
       typeof SafePromptContext !== 'undefined' ? SafePromptContext : null,
     ];
 
@@ -23,7 +27,7 @@
     // Register dictionary-based name detection
     const names = typeof SafePromptNames !== 'undefined' ? SafePromptNames : null;
     if (names) {
-      const nameLangs = { en: 'English', ar: 'Arabic', es: 'Spanish', fr: 'French', de: 'German', pt: 'Portuguese', zh: 'Chinese' };
+      const nameLangs = { en: 'English', ar: 'Arabic', es: 'Spanish', fr: 'French', de: 'German', pt: 'Portuguese', zh: 'Chinese', tr: 'Turkish', hi: 'Hindi', ko: 'Korean', ja: 'Japanese' };
       for (const [code, label] of Object.entries(nameLangs)) {
         const pat = names.buildPattern(code);
         if (!pat) continue;

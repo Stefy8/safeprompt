@@ -59,6 +59,15 @@ const SafePromptAR = {
         severity: 'critical',
         keywords: ['جواز', 'جواز سفر', 'passport', 'رقم الجواز'],
       },
+      {
+        type: 'drivers_license_sa',
+        label: 'رخصة القيادة السعودية',
+        pattern: '\\b\\d{10}\\b',
+        flags: 'g',
+        severity: 'high',
+        keywords: ['رخصة', 'رخصة قيادة', 'رخصة سياقة', 'قيادة', 'driving license'],
+        contextRequired: true,
+      },
     ],
 
     // ── المالية (Financial) ───────────────────────────────────────────────────

@@ -312,6 +312,10 @@ class SafePromptDetector {
       case 'phone_es':
       case 'phone_fr':
       case 'phone_cn':
+      case 'phone_tr':
+      case 'phone_in':
+      case 'phone_kr':
+      case 'phone_jp':
         return value.slice(0, 4) + '****' + value.slice(-2);
       case 'credit_card':
         return '****-****-****-' + value.replace(/\D/g, '').slice(-4);
@@ -321,6 +325,7 @@ class SafePromptDetector {
       case 'iban_es':
       case 'iban_fr':
       case 'iban_gb':
+      case 'iban_tr':
         return value.slice(0, 4) + ' **** **** ' + value.slice(-4);
       case 'ssn':
       case 'national_id':
@@ -330,6 +335,11 @@ class SafePromptDetector {
       case 'nie_es':
       case 'nir_fr':
       case 'id_cn':
+      case 'tc_kimlik':
+      case 'aadhaar_in':
+      case 'pan_in':
+      case 'rrn_kr':
+      case 'my_number_jp':
         return '***' + value.slice(-4);
       case 'api_key':
       case 'aws_key':
@@ -353,6 +363,10 @@ class SafePromptDetector {
       case 'name_dict_de':
       case 'name_dict_pt':
       case 'name_dict_zh':
+      case 'name_dict_tr':
+      case 'name_dict_hi':
+      case 'name_dict_ko':
+      case 'name_dict_ja':
         return value[0] + '***';
       case 'bitcoin_address':
       case 'ethereum_address':
@@ -370,6 +384,10 @@ class SafePromptDetector {
       case 'plate_sa':
       case 'plate_eg':
       case 'us_plate':
+      case 'plate_tr':
+      case 'plate_in':
+      case 'plate_kr':
+      case 'plate_jp':
         return '***' + value.slice(-3);
       case 'ipv6':
         return value.slice(0, 5) + ':••••:••••';

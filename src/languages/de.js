@@ -47,6 +47,15 @@ const SafePromptDE = {
         keywords: ['Sozialversicherung', 'SV-Nummer', 'Versicherungsnummer', 'Rentenversicherung'],
         contextRequired: true,
       },
+      {
+        type: 'drivers_license_de',
+        label: 'Fuehrerschein',
+        pattern: '\\b[A-Z0-9]{1}\\d{2}[A-Z0-9]{6}\\d{1}\\b',
+        flags: 'g',
+        severity: 'high',
+        keywords: ['Fuehrerschein', 'Fahrerlaubnis', 'driving license', 'Fuehrerscheinnummer'],
+        contextRequired: true,
+      },
     ],
 
     // ── Finanzen (Financial) ─────────────────────────────────────────────────

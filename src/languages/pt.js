@@ -85,6 +85,24 @@ const SafePromptPT = {
         keywords: ['passaporte', 'passport'],
         contextRequired: true,
       },
+      {
+        type: 'drivers_license_br',
+        label: 'CNH (Brasil)',
+        pattern: '\\b\\d{11}\\b',
+        flags: 'g',
+        severity: 'high',
+        keywords: ['CNH', 'habilitacao', 'carteira de habilitacao', 'carteira nacional'],
+        contextRequired: true,
+      },
+      {
+        type: 'drivers_license_pt',
+        label: 'Carta de Conducao (Portugal)',
+        pattern: '\\b[A-Z]{1,2}-\\d{6}\\s?\\d\\b',
+        flags: 'g',
+        severity: 'high',
+        keywords: ['carta de conducao', 'conducao', 'carta', 'habilitacao'],
+        contextRequired: true,
+      },
     ],
 
     // ── Financeiro (Financial) ───────────────────────────────────────────────

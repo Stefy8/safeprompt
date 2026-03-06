@@ -72,6 +72,24 @@ const SafePromptES = {
         keywords: ['pasaporte', 'passport', 'número de pasaporte'],
         contextRequired: true,
       },
+      {
+        type: 'drivers_license_es',
+        label: 'Permiso de Conducir (España)',
+        pattern: '\\b\\d{8}[A-Z]\\b',
+        flags: 'g',
+        severity: 'high',
+        keywords: ['permiso de conducir', 'carnet de conducir', 'licencia', 'conducir'],
+        contextRequired: true,
+      },
+      {
+        type: 'drivers_license_mx',
+        label: 'Licencia de Conducir (Mexico)',
+        pattern: '\\b[A-Z]{1,2}\\d{6,8}\\b',
+        flags: 'g',
+        severity: 'high',
+        keywords: ['licencia de conducir', 'licencia', 'conducir', 'manejo'],
+        contextRequired: true,
+      },
     ],
 
     // ── Financiero (Financial) ────────────────────────────────────────────────

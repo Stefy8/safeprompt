@@ -67,6 +67,32 @@ const SafePromptNames = {
     '徐明','孙丽','马超','朱红','胡强','郭华','林峰','何平','高磊','罗敏',
   ],
 
+  // Common Turkish first names
+  tr: [
+    'Mehmet','Mustafa','Ahmet','Ali','Hasan','Huseyin','Ibrahim','Ismail','Yusuf','Murat',
+    'Emre','Burak','Cem','Serkan','Tolga','Kemal','Okan','Baris','Arda','Kaan',
+    'Fatma','Ayse','Emine','Hatice','Zeynep','Elif','Merve','Busra','Esra','Selin',
+  ],
+
+  // Common Hindi/Indian first names
+  hi: [
+    'Aarav','Vivaan','Aditya','Vihaan','Arjun','Sai','Reyansh','Ayaan','Krishna','Ishaan',
+    'Rahul','Amit','Suresh','Rajesh','Vikram','Anil','Deepak','Rohit','Pankaj','Manish',
+    'Aadhya','Ananya','Diya','Myra','Sara','Isha','Kavya','Riya','Priya','Neha',
+  ],
+
+  // Common Korean first names (romanized)
+  ko: [
+    'Minjun','Seojun','Dohyun','Hajun','Jimin','Jiwoo','Siwoo','Yejun','Junwoo','Jihoon',
+    'Soyeon','Seoyon','Jiyeon','Hayoon','Yuna','Jiwon','Chaewon','Subin','Minseo','Yerin',
+  ],
+
+  // Common Japanese first names (romanized)
+  ja: [
+    'Haruto','Yuto','Sota','Hinata','Riku','Hayato','Minato','Ren','Yuma','Kaito',
+    'Hina','Yui','Miyu','Aoi','Yuna','Sakura','Riko','Honoka','Mio','Ichika',
+  ],
+
   /**
    * Build a regex pattern for name detection.
    * Names are detected when they appear as standalone capitalized words.
