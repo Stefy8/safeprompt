@@ -20,6 +20,8 @@ chrome.runtime.onInstalled.addListener(() => {
   chrome.action.setBadgeText({ text: '' });
   chrome.action.setBadgeBackgroundColor({ color: '#22c55e' });
 
+  // Remove old menus before creating to prevent duplicates
+  chrome.contextMenus.removeAll(() => {
   // Right-click context menu for manual masking
   chrome.contextMenus.create({
     id: 'safeprompt-mask',
@@ -33,6 +35,7 @@ chrome.runtime.onInstalled.addListener(() => {
     title: 'Scan with SafePrompt',
     contexts: ['selection'],
   });
+  }); // end removeAll callback
 });
 
 // Handle context menu clicks
@@ -43,6 +46,6 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
     chrome.tabs.sendMessage(tab.id, {
       type: info.menuItemId === 'safeprompt-mask' ? 'contextMask' : 'contextScan',
       text: info.selectionText,
-    });
+    }).catch(() => { /* tab may not have content script */ });
   }
 });

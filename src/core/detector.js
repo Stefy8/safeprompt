@@ -114,6 +114,7 @@ class SafePromptDetector {
           let match;
 
           while ((match = regex.exec(text)) !== null) {
+            if (match[0].length === 0) { regex.lastIndex++; continue; }
             const value = match[0].trim();
             if (!value || value.length < 2) continue;
             if (this._isAllowlisted(value)) continue;

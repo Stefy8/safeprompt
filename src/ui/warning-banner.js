@@ -242,7 +242,7 @@ class SafePromptBanner {
       const escaped = this._escapeHTML(d.value);
       const colors = { critical: '#fecaca', high: '#fed7aa', medium: '#fef08a', low: '#bfdbfe' };
       const bg = colors[d.severity] || colors.medium;
-      result = result.replace(escaped,
+      result = result.replaceAll(escaped,
         `<span style="background:${bg};padding:1px 3px;border-radius:3px;font-weight:600;">${escaped}</span>`
       );
     }
