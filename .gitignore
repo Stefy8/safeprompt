@@ -35,3 +35,10 @@ coverage/
 # Temp
 tmp/
 temp/
+
+# Internal docs (plans, analysis, progress tracking)
+PROJECT_PLAN.md
+COMPETITOR_ANALYSIS.md
+develope.md
+TODO.md
+ROADMAP.md

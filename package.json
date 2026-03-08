@@ -1,6 +1,6 @@
 {
   "name": "safeprompt",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Open-source browser extension that protects your sensitive data before sending it to AI chatbots. Multi-language PII detection for Claude, ChatGPT, Gemini & more.",
   "author": "SafePrompt Contributors",
   "license": "GPL-3.0-only",

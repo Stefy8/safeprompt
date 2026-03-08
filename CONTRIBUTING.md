@@ -41,16 +41,24 @@ const SafePromptXX = {
 ### 3. Add Platform Support
 - Identify CSS selectors for new AI chatbot platforms
 - Update `src/platforms/platform-detector.js`
+- Include `streamingSelector` for Response Guard streaming detection (or `null` if not applicable)
 - Test on the actual platform
 
-### 4. Report Bugs
+### 4. Improve Behavior Guards
+SafePrompt has several behavior guards you can improve:
+- **Response Guard** (`interceptor.js`) - Scans AI responses for leaked PII
+- **Clipboard Guardian** (`interceptor.js`) - Intercepts PII in paste events
+- **Memory Guard** (`detector.js`) - Tracks PII context across conversation turns
+- **False Positive Trainer** (`detector.js`) - Learns from user corrections
+
+### 5. Report Bugs
 Open an issue with:
 - Browser version
 - Platform where the issue occurred
 - Text that triggered the bug (redact actual PII!)
 - Expected vs actual behavior
 
-### 5. Improve Documentation
+### 6. Improve Documentation
 - README improvements
 - Pattern documentation
 - Translation of docs
@@ -101,9 +109,9 @@ Load the extension in Chrome:
 
 ## Pull Request Process
 
-1. Ensure all tests pass: `npm test`
-2. Add tests for new patterns
-3. Update README if adding languages/platforms
+1. Ensure all tests pass: `npm test` (168 tests across 3 suites)
+2. Add tests for new patterns or features
+3. Update README if adding languages/platforms/features
 4. One PR per feature/language
 5. Keep PRs focused and reviewable
 

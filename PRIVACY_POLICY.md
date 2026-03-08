@@ -1,10 +1,10 @@
 # Privacy Policy - SafePrompt
 
-**Last updated:** March 6, 2026
+**Last updated:** March 8, 2026
 
 ## Overview
 
-SafePrompt is a browser extension that detects and blocks personally identifiable information (PII) before it is sent to AI chatbot platforms. SafePrompt is designed with privacy as its core principle.
+SafePrompt is a browser extension that detects and blocks personally identifiable information (PII) before it is sent to AI chatbot platforms, and monitors AI responses for PII that may have been echoed or leaked. SafePrompt is designed with privacy as its core principle.
 
 ## Data Collection
 
@@ -24,13 +24,17 @@ All processing happens **100% locally** in your browser:
 2. Detected items are shown to you in a local warning banner
 3. If you choose to redact, replacements happen in-browser memory
 4. Token mappings are stored in browser memory only and auto-expire after 4 hours
+5. **Response Guard** scans AI responses locally for PII using the same detection engine - no response text is stored or transmitted
+6. **Clipboard Guardian** intercepts paste events locally to check for PII before it reaches the chatbot
+7. **Memory Guard** tracks conversation context in browser memory only (never persisted to disk)
 
 ## Data Storage
 
 SafePrompt uses `chrome.storage.sync` and `chrome.storage.local` exclusively for:
 
 - **User preferences** (sensitivity level, enabled languages, enabled categories)
-- **Activity log** (count of detections per session, stored locally, never transmitted)
+- **Activity log** (count of detections per session with source type input/response, stored locally, never transmitted)
+- **False positive rules** (user-trained patterns to ignore, stored locally)
 - **Allowlist** (user-defined values to ignore)
 - **Disabled sites** (user-defined sites to skip)
 

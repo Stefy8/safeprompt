@@ -5,14 +5,14 @@
 <h1 align="center">SafePrompt - AI Privacy Shield</h1>
 
 <p align="center">
-  <strong>Protect your sensitive data before sending it to AI chatbots.</strong><br>
+  <strong>Protect your sensitive data before sending it to AI chatbots — and catch leaks in their responses.</strong><br>
   100% local. Open source. 11 languages. Zero data collection.
 </p>
 
 <p align="center">
   <a href="https://github.com/Alarpi1995/safeprompt/releases"><img src="https://img.shields.io/github/v/release/Alarpi1995/safeprompt?style=flat-square&color=blue" alt="Release" /></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-GPL--3.0-green?style=flat-square" alt="License" /></a>
-  <img src="https://img.shields.io/badge/tests-114%20passing-brightgreen?style=flat-square" alt="Tests" />
+  <img src="https://img.shields.io/badge/tests-168%20passing-brightgreen?style=flat-square" alt="Tests" />
   <img src="https://img.shields.io/badge/patterns-221+-purple?style=flat-square" alt="Patterns" />
   <img src="https://img.shields.io/badge/languages-11-orange?style=flat-square" alt="Languages" />
   <img src="https://img.shields.io/badge/dependencies-0-brightgreen?style=flat-square" alt="Zero Dependencies" />
@@ -41,7 +41,7 @@ Every time you use ChatGPT, Claude, or Gemini, you risk accidentally sharing:
 
 ## The Solution
 
-SafePrompt scans your text **locally in your browser** before it reaches any AI. It detects 221+ PII patterns across 11 languages, replaces sensitive data with safe placeholders, and lets you unmask the AI's response to see your real data.
+SafePrompt scans your text **locally in your browser** before it reaches any AI. It detects 221+ PII patterns across 11 languages, replaces sensitive data with safe placeholders, and lets you unmask the AI's response to see your real data. **Response Guard** also monitors AI responses for any PII that may have been echoed or leaked back.
 
 **No servers. No telemetry. No trust required - read the code yourself.**
 
@@ -63,6 +63,10 @@ AI receives:  "My SSN is [SSN_1], email [EMAIL_2]"
             AI responds with tokens
                     |
       [Unmask Data] button restores your real data
+                    |
+        Response Guard scans AI output
+                    |
+    Badge alert if PII leaked  →  [Hide PII] [Dismiss]
 ```
 
 ---
@@ -74,13 +78,19 @@ AI receives:  "My SSN is [SSN_1], email [EMAIL_2]"
 | **Real-time Detection** | Scans as you type, warns before you send |
 | **Smart Redaction** | Replaces PII with consistent placeholder tokens |
 | **One-click Unmask** | Toggle to see real data in AI responses |
+| **Response Guard** | Scans AI responses for PII that was echoed or leaked back |
+| **Clipboard Guardian** | Intercepts paste events containing PII before they reach the chatbot |
+| **Memory Guard** | Tracks conversation context to detect PII across multiple messages |
 | **221+ Patterns** | Covers identity, financial, credentials, medical, crypto, and more |
 | **11 Languages** | English, Arabic, Spanish, French, Chinese, German, Portuguese, Turkish, Hindi, Korean, Japanese |
 | **500+ Names Dictionary** | Detects personal names across all supported languages |
 | **Context-Aware** | Understands "my password is X" vs normal text |
 | **Luhn Validation** | Validates credit cards, not just pattern matches |
+| **Privacy Score** | 0-100 score based on severity, count, and context of detections |
 | **4-Hour Auto-Expiry** | Token mappings expire automatically for security |
-| **Activity Log** | Track what was blocked, export as CSV |
+| **Activity Log** | Track what was blocked with source (input/response), export as CSV |
+| **Safe Export** | Export conversations with PII auto-redacted (TXT, JSON, Markdown) |
+| **False Positive Trainer** | Mark false positives so they're ignored in future scans |
 
 ---
 
@@ -131,6 +141,8 @@ Works automatically on:
 | **100% Local** | Yes | Yes | No (cloud API) | No (cloud API) |
 | **Languages** | 11 | 1 (English) | 1 | 48 (cloud) |
 | **Patterns** | 221+ | 320+ | Unknown | Unknown |
+| **Response Guard** | Yes | No | No | No |
+| **Clipboard Guard** | Yes | No | No | No |
 | **Names Detection** | Yes (11 langs) | No | Yes | Yes |
 | **Validation (Luhn, etc.)** | Yes | Unknown | Unknown | Yes |
 | **Price** | Free | $4.99/mo | $9.99/mo | Enterprise |
@@ -148,7 +160,7 @@ Works automatically on:
 git clone https://github.com/Alarpi1995/safeprompt.git
 cd safeprompt
 npm install
-npm test    # 114 tests should pass
+npm test    # 168 tests should pass
 ```
 
 Then load in Chrome:
@@ -188,13 +200,20 @@ Coming soon.
 - **Medium** (default) - Critical + high + medium
 - **High** - Everything including low severity
 
+### Behavior Guards
+- **Response Guard** - Scan AI responses for PII (enabled by default)
+- **Clipboard Guardian** - Intercept PII in paste events
+- **Memory Guard** - Track PII across conversation turns
+- **False Positive Trainer** - Mark false positives to improve accuracy
+
 ### Settings
 Access via the extension popup or options page:
 - Toggle specific languages on/off
 - Enable/disable detection categories
+- Enable/disable individual behavior guards
 - Add values to the allowlist
 - Disable SafePrompt on specific sites
-- Export activity log as CSV
+- Export activity log as CSV (includes source: input/response)
 
 ### Keyboard Shortcuts
 | Shortcut | Action |
@@ -212,7 +231,7 @@ safeprompt/
   src/
     core/
       detector.js          # PII detection engine (221+ patterns)
-      interceptor.js       # Form interceptor + unmask toggle
+      interceptor.js       # Form interceptor + Response Guard + unmask
       context-patterns.js  # Context-aware detection (all languages)
       names-dictionary.js  # 500+ names across 11 languages
     languages/
@@ -220,15 +239,17 @@ safeprompt/
       tr.js, hi.js, ko.js, ja.js
       registry.js          # Auto-registration
     platforms/
-      platform-detector.js # AI chatbot detection (11 platforms)
+      platform-detector.js # AI chatbot detection + streaming detection
     ui/
       warning-banner.js    # Warning overlay + preview
-      popup.html/js        # Extension popup + file scanning
-      options.html/js      # Settings page
-      styles.css           # Dark mode + RTL support
+      popup.html/js        # Extension popup + stats (incl. Resp PII)
+      options.html/js      # Settings + behavior guards + activity log
+      styles.css           # Dark mode + RTL + Response Guard badges
     background.js          # Service worker
   tests/
-    detector.test.js       # 114 test cases
+    detector.test.js       # Core PII detection tests
+    platform-detector.test.js # Platform detection tests
+    response-guard.test.js # Response Guard tests
 ```
 
 ---
@@ -237,7 +258,7 @@ safeprompt/
 
 - **Pure JavaScript** - No frameworks, no build tools required
 - **Chrome Extension Manifest V3** - Latest extension platform
-- **Jest** - Testing framework (114 tests)
+- **Jest** - Testing framework (168 tests across 3 suites)
 - **Zero Dependencies** - No npm packages in production
 
 ---
@@ -245,9 +266,14 @@ safeprompt/
 ## Testing
 
 ```bash
-npm test              # Run all 114 tests
+npm test              # Run all 168 tests
 npm test -- --watch   # Watch mode
 ```
+
+Tests cover:
+- **detector.test.js** - PII patterns, validation, redaction, CSV export across 11 languages
+- **platform-detector.test.js** - Platform detection and selectors
+- **response-guard.test.js** - Response scanning, fingerprinting, masking, activity log integration
 
 ---
 
@@ -285,6 +311,8 @@ SafePrompt processes everything locally in your browser. We never:
 - Use analytics or telemetry
 - Store sensitive data (only detection counts in local storage)
 - Require unnecessary permissions
+
+Response Guard scans AI outputs locally in your browser using the same detection engine. No response text is ever transmitted, stored, or logged - only detection counts and types are recorded in the activity log.
 
 **Permissions used:** `storage` (settings), `activeTab` (scan current page), `contextMenus` (right-click menu)
 
