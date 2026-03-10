@@ -93,6 +93,18 @@ const SafePromptNames = {
     'Hina','Yui','Miyu','Aoi','Yuna','Sakura','Riko','Honoka','Mio','Ichika',
   ],
 
+  // Common Arabic words that coincide with names — must never trigger name detection.
+  // These are everyday words whose surface form matches a dictionary name but carry
+  // no personal-name meaning in normal sentences.
+  _arExclusions: new Set([
+    'علي', 'حسن', 'سعد', 'صالح', 'عادل', 'سالم', 'منصور', 'راشد', 'ماجد',
+    'أمل', 'وفاء', 'هند', 'ريم', 'مها', 'نواف',
+  ]),
+
+  // Suffixes / prefixes that, when attached to an Arabic name candidate,
+  // indicate the match is part of a longer word (e.g. عليه, حسناً, سعدت).
+  _arBoundary: '[\\u0600-\\u06FF\\u0750-\\u077F\\uFB50-\\uFDFF\\uFE70-\\uFEFF]',
+
   /**
    * Build a regex pattern for name detection.
    * Names are detected when they appear as standalone capitalized words.
@@ -107,8 +119,13 @@ const SafePromptNames = {
     }
 
     if (lang === 'ar') {
-      // Arabic names: word boundary match
-      return names.map(n => n.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|');
+      // Filter out names that are too ambiguous (common everyday words)
+      const safe = names.filter(n => !this._arExclusions.has(n));
+      const escaped = safe.map(n => n.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
+      // Use Arabic-aware word boundaries via lookaround so that
+      // "علي" inside "عليه" or "حسن" inside "أحسن" is NOT matched.
+      const boundary = this._arBoundary;
+      return '(?<!' + boundary + ')(?:' + escaped.join('|') + ')(?!' + boundary + ')';
     }
 
     // Latin-script names: case-sensitive word boundary

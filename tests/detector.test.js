@@ -863,13 +863,13 @@ describe('Names Dictionary', () => {
     expect(name.value).toBe('Jennifer');
   });
 
-  test('detects Arabic name via dictionary', () => {
+  test('detects Arabic name via dictionary when standalone', () => {
     const d = createDetector();
     const names = require('../src/core/names-dictionary').SafePromptNames;
     const pat = names.buildPattern('ar');
     d.registerLanguage('names_ar', {
       code: 'names_ar', name: 'AR Names', nativeName: 'AR Names',
-      patterns: { names: [{ type: 'name_dict_ar', label: 'Name', pattern: '(?:' + pat + ')', flags: 'g', severity: 'high' }] },
+      patterns: { names: [{ type: 'name_dict_ar', label: 'Name', pattern: pat, flags: 'g', severity: 'high' }] },
     });
     const results = d.scan('تواصل مع فاطمة بخصوص الطلب');
     const name = results.find((r) => r.type === 'name_dict_ar');
@@ -1181,5 +1181,131 @@ describe('Policy pack JSON workflows', () => {
     expect(d.settings.policyPack).toBe('enterprise_strict');
     expect(d.settings.protectedTerms).toEqual(['TopSecret', 'AcmeClient']);
     expect(result.policyPack.id).toBe('enterprise_strict');
+  });
+});
+
+// ═══════════════════════════════════════════════════════════════════════════
+// Arabic False Positive Prevention
+// ═══════════════════════════════════════════════════════════════════════════
+
+describe('Arabic - False Positive Prevention', () => {
+  const { SafePromptNames } = require('../src/core/names-dictionary');
+
+  // Arabic name context keywords (mirrors registry.js)
+  const arNameKeywords = [
+    'اسمي', 'اسمه', 'اسمها', 'الاسم', 'اسم', 'الأخ', 'الأخت',
+    'السيد', 'السيدة', 'الأستاذ', 'الأستاذة', 'الدكتور', 'الدكتورة',
+    'المهندس', 'المهندسة', 'الشيخ', 'العميل', 'المريض', 'الطالب', 'الطالبة',
+    'يدعى', 'تدعى', 'المدعو', 'المدعوة',
+  ];
+
+  function createFullDetector() {
+    const d = createDetector();
+    const pat = SafePromptNames.buildPattern('ar');
+    if (pat) {
+      d.registerLanguage('names_ar', {
+        code: 'names_ar', name: 'Arabic Names', nativeName: 'Arabic Names Dictionary',
+        patterns: {
+          names: [{
+            type: 'name_dict_ar',
+            label: 'Personal Name (Arabic)',
+            pattern: pat,
+            flags: 'g',
+            severity: 'high',
+            contextRequired: true,
+            keywords: arNameKeywords,
+          }],
+        },
+      });
+    }
+    return d;
+  }
+
+  test('does NOT detect "علي" inside "عليه" (on him)', () => {
+    const d = createFullDetector();
+    const results = d.scan('قم بفحص المشروع وقم بعمل منشور عليه ساقوم بنشره');
+    const name = results.find((r) => r.type === 'name_dict_ar');
+    expect(name).toBeUndefined();
+  });
+
+  test('does NOT detect "حسن" inside "أحسن" (better)', () => {
+    const d = createFullDetector();
+    const results = d.scan('هذا أحسن حل للمشكلة');
+    const name = results.find((r) => r.type === 'name_dict_ar');
+    expect(name).toBeUndefined();
+  });
+
+  test('does NOT detect "سعد" inside "سعدت" (I was happy)', () => {
+    const d = createFullDetector();
+    const results = d.scan('سعدت بلقائك اليوم');
+    const name = results.find((r) => r.type === 'name_dict_ar');
+    expect(name).toBeUndefined();
+  });
+
+  test('does NOT detect "صالح" as name without context (it means valid/good)', () => {
+    const d = createFullDetector();
+    const results = d.scan('هذا العقد صالح لمدة سنة');
+    const name = results.find((r) => r.type === 'name_dict_ar');
+    expect(name).toBeUndefined();
+  });
+
+  test('does NOT detect "عادل" as name without context (it means fair)', () => {
+    const d = createFullDetector();
+    const results = d.scan('القرار عادل ومنصف');
+    const name = results.find((r) => r.type === 'name_dict_ar');
+    expect(name).toBeUndefined();
+  });
+
+  test('does NOT flag normal Arabic conversation text', () => {
+    const d = createFullDetector();
+    // This is the exact scenario from the user's bug report
+    const text = 'قم انت بفحص المشروع في المستودع وقم بعمل منشور رائع يقنع اي شخص بالموافق عليه ساقو بنشره من ماهو رايك';
+    const results = d.scan(text);
+    const nameDetection = results.find((r) => r.category === 'names');
+    expect(nameDetection).toBeUndefined();
+  });
+
+  test('DOES detect Arabic name with proper context keyword (اسمي)', () => {
+    const d = createFullDetector();
+    const results = d.scan('اسمي محمد وأريد المساعدة');
+    const name = results.find((r) => r.type === 'name_dict_ar' || r.type === 'name_context_ar');
+    expect(name).toBeDefined();
+  });
+
+  test('DOES detect Arabic name with title prefix (السيد)', () => {
+    const d = createFullDetector();
+    const results = d.scan('تواصل مع السيد أحمد بخصوص الطلب');
+    const name = results.find((r) => r.type === 'name_dict_ar');
+    expect(name).toBeDefined();
+  });
+
+  test('DOES detect Arabic name with الدكتور prefix', () => {
+    const d = createFullDetector();
+    const results = d.scan('حجز موعد مع الدكتور إبراهيم');
+    const name = results.find((r) => r.type === 'name_dict_ar');
+    expect(name).toBeDefined();
+  });
+
+  test('Arabic name boundary prevents partial matches on suffixed words', () => {
+    const pat = SafePromptNames.buildPattern('ar');
+    // The pattern should use lookbehind/lookahead for Arabic characters
+    expect(pat).toContain('(?<!');
+    expect(pat).toContain('(?!');
+  });
+
+  test('excluded common Arabic words are filtered from pattern', () => {
+    const pat = SafePromptNames.buildPattern('ar');
+    // Common words that are also names should be excluded
+    // "علي" should be excluded because it's a very common Arabic word
+    // We check the alternation group does not include standalone علي
+    const alternatives = pat.replace(/^\(\?\<\!.*?\)\(\?:/, '').replace(/\)\(\?!.*$/, '');
+    const nameList = alternatives.split('|');
+    expect(nameList).not.toContain('علي');
+    expect(nameList).not.toContain('حسن');
+    expect(nameList).not.toContain('سعد');
+    expect(nameList).not.toContain('صالح');
+    // "محمد" should still be included (unambiguous name)
+    expect(nameList).toContain('محمد');
+    expect(nameList).toContain('فاطمة');
   });
 });

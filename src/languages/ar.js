@@ -182,10 +182,12 @@ const SafePromptAR = {
       {
         type: 'plate_eg',
         label: 'لوحة سيارة مصرية',
-        pattern: '\\b[\\u0600-\\u06FF]{1,3}\\s?\\d{1,4}\\s?[\\u0600-\\u06FF]{1,3}\\b',
+        // Egyptian plates: 1-3 Arabic letters, space, 1-4 digits, space, 1-3 Arabic letters
+        // Require at least 2 digits and proper spacing to reduce false positives
+        pattern: '(?:[\\u0600-\\u06FF]{1,3})\\s\\d{2,4}\\s(?:[\\u0600-\\u06FF]{1,3})',
         flags: 'g',
         severity: 'medium',
-        keywords: ['لوحة', 'سيارة', 'عربية', 'plate'],
+        keywords: ['لوحة', 'سيارة', 'عربية', 'plate', 'رقم اللوحة', 'مرور'],
         contextRequired: true,
       },
     ],
