@@ -21,6 +21,7 @@ class CrearTablaProblematica extends Migration
                 ->references('dni')->on('ciudadano')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
+            $table->timestamps();
             $table->rememberToken();
         });
     }

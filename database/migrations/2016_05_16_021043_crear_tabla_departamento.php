@@ -15,7 +15,8 @@ class CrearTablaDepartamento extends Migration
         Schema::create('departamento', function (Blueprint $table) {
             $table->increments('id_dpto');
             $table->string('nom_dpto', 100);
-            $table->string('ubicacion_dpto', 100);
+            $table->string('ubicacion_dpto', 300);
+            $table->timestamps();
             $table->rememberToken();
         });
     }

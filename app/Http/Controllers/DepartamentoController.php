@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Departamento;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AgregarDepartamentoRequest;
@@ -49,9 +49,11 @@ class DepartamentoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-        //
+        $dpto = Departamento::all();
+        return view('verDpto', compact('dpto'));
+
     }
 
     /**

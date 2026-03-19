@@ -15,8 +15,9 @@ class CrearTablaBv extends Migration
         Schema::create('bv', function (Blueprint $table) {
             $table->increments('id_bv');
             $table->string('nom_bv', 100);
-            $table->string('ubicacion_bv', 100);
+            $table->string('ubicacion_bv', 300);
             $table->string('tipo_bv', 100);
+            $table->timestamps();
             $table->rememberToken();
         });
     }

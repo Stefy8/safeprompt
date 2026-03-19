@@ -3,16 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Auth;
-use Session;
-use Redirect;
-use App\User;
 
 use App\Http\Requests;
-use App\Http\Requests\LoginRequest;
 use App\Http\Controllers\Controller;
 
-class LoginController extends Controller
+class ComunidadController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -31,13 +26,7 @@ class LoginController extends Controller
      */
     public function create()
     {
-        $datos = [
-            'email' => 'Admin',
-            'password' => bcrypt('12345'),
-        ];
-        $cliente = new User($datos);
-        //dd($request->all());
-        $cliente->save();
+        //
     }
 
     /**
@@ -46,16 +35,9 @@ class LoginController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-
-    public function store(LoginRequest $request)
+    public function store(Request $request)
     {
-
-        if(Auth::attempt(['email' => $request['email'], 'password' => $request['password']])){
-            return Redirect::to('/admin');
-        }else{
-            Session::flash('mensaje', 'Datos Incorrectos');
-            return Redirect::to('/');
-        }
+        //
     }
 
     /**

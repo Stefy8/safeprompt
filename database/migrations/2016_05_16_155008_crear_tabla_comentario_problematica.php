@@ -25,6 +25,8 @@ class CrearTablaComentarioProblematica extends Migration
                 ->references('id_proy')->on('proyecto')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
+            $table->timestamps();
+            $table->rememberToken();
         });
     }
 

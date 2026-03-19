@@ -21,6 +21,14 @@ Route::get('/agregarciudadano', ['as'=>'ciudadano','uses'=>'CiudadanoController@
 //Route::post('/inicio', ['as'=>'login.ciudadano','uses'=>'UsuarioController@store']);
 Route::get('/agregarDpto', ['as'=>'dpto','uses'=>'DepartamentoController@index']);
 Route::post('/agregarDpto', ['as'=>'agregar_dpto','uses'=>'DepartamentoController@store']);
+Route::get('/verDpto', ['as'=>'ver_dpto','uses'=>'DepartamentoController@show']);
+
+Route::get('/agregarMcpio', ['as'=>'mcpio','uses'=>'MunicipioController@index']);
+Route::post('/agregarMcpio', ['as'=>'agregar_mcpio','uses'=>'MunicipioController@store']);
+Route::get('/verMcpio', ['as'=>'ver_mcpio','uses'=>'MunicipioController@show']);
+
+Route::get('/agregarComuna', ['as'=>'comuna','uses'=>'Controller@index']);
+Route::get('/agregarComuna', ['as'=>'agregar_comuna','uses'=>'Controller@index']);
 
 Route::post('/login', ['as'=>'login', 'uses'=>'LoginController@store']);
 

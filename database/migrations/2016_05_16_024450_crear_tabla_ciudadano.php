@@ -27,6 +27,7 @@ class CrearTablaCiudadano extends Migration
                 ->references('id_bv')->on('bv')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
+            $table->timestamps();
             $table->rememberToken();
         });
     }

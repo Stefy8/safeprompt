@@ -24,6 +24,7 @@ class CrearTablaEdil extends Migration
                 ->references('id_comunidad')->on('comunidad')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
+            $table->timestamps();
             $table->rememberToken();
         });
     }

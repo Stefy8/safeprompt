@@ -1,18 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Document</title>
-  <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}" media="screen" title="no title" charset="utf-8">
-  <link rel="stylesheet" href="{{asset('css/estilo.css')}}" media="screen" title="no title" charset="utf-8">
-  <link rel="stylesheet" href="{{ asset('css/bootstrap-toggle.min.css') }}">
+@extends('plantilla')
 
-</head>
-<body>
-  <header>
-    @include('header')
+<header>
+  <div class="row">
+    <div class="col-md-2">
+      <img class="img-responsive" src="{{asset('images/logo1.png')}}" alt="" />
+      <h5>Monteria Opina</h5>
+    </div>
+    <div class="col-md-10">
+      <nav class="nav nav-tabs nav">
+        <ul class="nav navbar-nav" >
+          <li><a class="a" href="{{route('index')}}">Inicio</a></li>
+          <li><a class="a" href="{{route('ciudadano')}}">Unéte</a></li>
+          <li><a class="a" href="#" data-toggle="modal" data-target="#myModal2">Login</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
+@section('content')
 
-  </header>
   <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -62,20 +68,7 @@
       </div>
     </div>
 
-  <div id="contenido">
-
-  </div>
       @if(Session::has('mensaje'))
       <p class="alert alert-danger"> {{Session::get('mensaje')}} </p>
       @endif
-
-
-  <footer><p>Derechos Reservados &copy Monteria Opina 2016</p></footer>
-
-        <script src="{{ asset('js/jquery.js') }}"></script>
-        <script src="{{ asset('js/jquery-latest.js') }}"></script>
-        <script src="{{ asset('js/bootstrap.min.js') }}"></script>
-        <script src="{{ asset('js/bootstrap-toggle.min.js')}}"></script>
-
-</body>
-</html>
+@endsection

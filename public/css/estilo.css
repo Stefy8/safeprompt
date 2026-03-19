@@ -6,6 +6,7 @@
 html,body{
   margin: 0;
   overflow-x:hidden ;
+  overflow-y:hidden ;
 }
 header{
   background: #293b50;
@@ -44,8 +45,7 @@ header ul li a:hover {
   color:black;
 }
 #contenido{
-  min-height: 470px;
-  padding-top: 5%;
+  min-height: 610px;
 }
 footer{
     background: #293b50;
@@ -58,4 +58,7 @@ footer{
 .drop{
   position: absolute;
    z-index: 99
+}
+.form_dpto{
+  padding-top: 16%;
 }

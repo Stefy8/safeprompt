@@ -21,6 +21,7 @@ class CrearTablaProyecto extends Migration
                 ->references('id_edil')->on('edil')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
+            $table->timestamps();
             $table->rememberToken();
         });
     }

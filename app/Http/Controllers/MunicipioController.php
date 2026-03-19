@@ -3,16 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Auth;
-use Session;
-use Redirect;
-use App\User;
-
+use App\Departamento;
+use App\Municipio;
 use App\Http\Requests;
-use App\Http\Requests\LoginRequest;
+use App\Http\Requests\AgregarMunicipioRequest;
 use App\Http\Controllers\Controller;
 
-class LoginController extends Controller
+class MunicipioController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -21,7 +18,8 @@ class LoginController extends Controller
      */
     public function index()
     {
-        //
+        $dpto = Departamento::all();
+        return view('agregarMcpio', compact('dpto'));
     }
 
     /**
@@ -31,13 +29,7 @@ class LoginController extends Controller
      */
     public function create()
     {
-        $datos = [
-            'email' => 'Admin',
-            'password' => bcrypt('12345'),
-        ];
-        $cliente = new User($datos);
-        //dd($request->all());
-        $cliente->save();
+        //
     }
 
     /**
@@ -46,16 +38,12 @@ class LoginController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-
-    public function store(LoginRequest $request)
+    public function store(AgregarMunicipioRequest $request)
     {
-
-        if(Auth::attempt(['email' => $request['email'], 'password' => $request['password']])){
-            return Redirect::to('/admin');
-        }else{
-            Session::flash('mensaje', 'Datos Incorrectos');
-            return Redirect::to('/');
-        }
+      //dd($request->all());
+      $mcpio = new Municipio($request->all());
+      $mcpio->save();
+      return redirect()->route('mcpio');
     }
 
     /**
@@ -64,15 +52,16 @@ class LoginController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-        //
+      $mcpio = Departamento::join('municipio', 'municipio.fk_id_dpto', '=', 'departamento.id_dpto')->paginate(1);
+      return view('verMcpio', compact('mcpio'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int  $id'
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
